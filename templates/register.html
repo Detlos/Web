@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block tittle %}Registro{% endblock%}
+{% block content %}
+    <div class="container">
+    <br>
+    <hr>
+    
+    
+    
+    
+    
+    <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">Crea tu cuenta</h4>
+        <p class="text-center">Empieza con una cuenta gratuita</p>
+        <p>
+            <a href="" class="btn btn-block" style="background-color: #dd5346;
+            color: #fff; "> <i class="fab fa-google"></i>   Registro via Google</a>
+            <a href="" class="btn btn-block " style="background-color: #405D9D;
+            color: #fff;"> <i class="fab fa-facebook-f"></i>   Registro via facebook</a>
+        </p>
+        <p class="divider-text">
+            <span class="bg-light">Sino</span>
+        </p>
+        <form>
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+             </div>
+            <input name="" class="form-control" placeholder="Nombre" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+             </div>
+            <input name="" class="form-control" placeholder="Apellido" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+             </div>
+            <input name="" class="form-control" placeholder="Usuario" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+             </div>
+            <input name="" class="form-control" placeholder="Correo" type="email">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fas fa-venus-mars"></i> </span>
+            </div>
+            <select class="form-control">
+                <option selected=""> Genero </option>
+                <option>Hombre</option>
+                <option>Mujer</option>
+            </select>
+        </div> <!-- form-group end.// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input class="form-control" placeholder="Crear contraseña" type="password">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input class="form-control" placeholder="Confirmar contraseña" type="password">
+        </div> <!-- form-group// -->                                      
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Crear Cuenta  </button>
+        </div> <!-- form-group// -->      
+        <p class="text-center">Tienes una cuenta? <a href="">Inicia Sesión</a> </p>                                                                 
+    </form>
+    </article>
+    </div> <!-- card.// -->
+    
+    </div>    
+{% endblock %}
