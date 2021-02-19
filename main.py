@@ -12,15 +12,17 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+@app.route('/login')
+def login():
+    return ('aqui va el login')
+
 @app.route('/perfil')
 def perfil():
     return render_template("perfil.html")
 
-
 @app.route('/camaras')
 def camara():
     return render_template("camaras.html")
-
 
 @app.route('/fotografias')
 def fotos():
