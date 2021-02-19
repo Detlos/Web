@@ -30,5 +30,10 @@ def fotos():
 def video():
     return render_template("video.html")
 
+@app.route('/register')
+def register():
+    return render_template("register.html")
+
 if __name__ == '__main__':
     app.run(debug=True)
+
