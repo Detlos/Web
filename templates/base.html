@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block tittle %}{% endblock %}</title>
+   
+    
+  
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+                   
+          <img src="https://raw.githubusercontent.com/Detlos/Web/master/templates/images/logo.png?token=ALYD6PHONPJVOCVO6DJYN7DAFVQFY" class="img-fluid" style="height: 4em;">
+          
+
+            <form class="d-flex">
+              <button class="btn btn-outline-success me-2" type="submit">Register</button>
+              <button class="btn btn-outline-success" type="submit">Login</button>
+            </form>
+
+          </div>
+        </div>
+      </nav>
+      
+      {% block content %}
+      {% endblock %}
+
+</body>
+</html>
