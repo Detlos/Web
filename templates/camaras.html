@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block tittle %}Perfil{% endblock%}
+
+{% block content %}
+
+<style>
+    body{
+        background-color:black;
+    }
+    a{
+      color: black;
+    }
+</style>
+<br>
+<br>
+<br>
+<div class="row row-cols-1 row-cols-md-2 g-4" style="padding:5%; text-align: center;">
+    <div class="col">
+        <a href = "#">
+      <div class="card">
+        <img src="https://e7.pngegg.com/pngimages/272/936/png-clipart-computer-icons-desktop-plus-and-minus-signs-restart-miscellaneous-sign.png" class="card-img-top" alt="Engranaje" style = "width: 10%; margin-left: auto; margin-right: auto;">
+        <div class="card-body">
+          <h5 class="card-title">Añadir cámara</h5>
+          <p class="card-text">Añadir cámaras a la cuenta
+
+        </p>
+        </div>
+        </a>
+      </div>
+    </div>
+    <div class="col">
+        <a href = "#">
+      <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2016/01/03/11/24/gear-1119298_1280.png" class="card-img-top" alt="Engranaje" style = "width: 10%; margin-left: auto; margin-right: auto;">
+        <div class="card-body">
+          <h5 class="card-title">Configurar cámaras</h5>
+          <p class="card-text">Configuración de cámaras asociadas a la cuenta
+        </p>
+        </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

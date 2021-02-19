@@ -12,9 +12,28 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+@app.route('/perfil')
+def perfil():
+    return render_template("perfil.html")
+
+
+@app.route('/camaras')
+def camara():
+    return render_template("camaras.html")
+
+
+@app.route('/fotografias')
+def fotos():
+    return render_template("fotos.html")
+
+@app.route('/video')
+def video():
+    return render_template("video.html")
+
 @app.route('/register')
 def register():
     return render_template("register.html")
 
 if __name__ == '__main__':
-    app.run(port = 5000,debug=True)
+    app.run(debug=True)
+
