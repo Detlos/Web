@@ -41,7 +41,8 @@ def verRegister():
     password = request.form.get('pass')
     name = request.form.get('name')
     lastName = request.form.get('lastName')
-    return f'El correo es {email} la pass es {password} el nombre {name} apellido {lastName}'
+    gender = request.form.get('gender')
+    return f'{gender}'
 
 if __name__ == '__main__':
     app.run(port = 5000,debug=True)
