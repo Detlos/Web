@@ -3,9 +3,7 @@ import requests as api
 import json
 import os
 
-def clear(): os.system('clear')
-clear()
-
+# --
 app = Flask(__name__)
 
 @app.route('/')
@@ -35,6 +33,15 @@ def register():
 @app.route('/login')
 def login():
     return render_template("login.html")
+
+@app.route('/verification_register', methods=['POST','GET'])
+def verRegister():
+    email = request.form.get('correo')
+    password = request.form.get('pass')
+    name = request.form.get('name')
+    lastName = request.form.get('lastName')
+    gender = request.form.get('gender')
+    return f'{gender}'
 
 if __name__ == '__main__':
     app.run(port = 5000,debug=True)
