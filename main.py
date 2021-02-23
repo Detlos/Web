@@ -1,13 +1,8 @@
 from flask import Flask, redirect, render_template,url_for,request,flash
-<<<<<<< HEAD
-=======
 import requests as api
->>>>>>> 9cb780cf7c90bff2e02420dc068add878d73993a
 import json
 import os
 
-def clear(): os.system('clear')
-clear()
 
 app = Flask(__name__)
 
@@ -15,9 +10,6 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route('/login')
-def login():
-    return ('aqui va el login')
 
 @app.route('/perfil')
 def perfil():
@@ -39,15 +31,17 @@ def video():
 def register():
     return render_template("register.html")
 
-<<<<<<< HEAD
 @app.route('/login')
 def login():
     return render_template("login.html")
 
+@app.route('/verification_register', methods=['POST','GET'])
+def verRegister():
+    email = request.form.get('correo')
+    password = request.form.get('pass')
+    name = request.form.get('name')
+    lastName = request.form.get('lastName')
+    return f'El correo es {email} la pass es {password} el nombre {name} apellido {lastName}'
+
 if __name__ == '__main__':
     app.run(port = 5000,debug=True)
-=======
-if __name__ == '__main__':
-    app.run(debug=True)
-
->>>>>>> 9cb780cf7c90bff2e02420dc068add878d73993a

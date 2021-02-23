@@ -22,30 +22,30 @@
         <p class="divider-text">
             <span class="bg-light">Sino</span>
         </p>
-        <form>
+        <form method ="POST" action="/verification_register">
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
              </div>
-            <input name="" class="form-control" placeholder="Nombre" type="text">
+            <input name="name" class="form-control" placeholder="Nombre" type="text">
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
              </div>
-            <input name="" class="form-control" placeholder="Apellido" type="text">
+            <input name="lastName" class="form-control" placeholder="Apellido" type="text">
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
              </div>
-            <input name="" class="form-control" placeholder="Usuario" type="text">
+            <input name="nick" class="form-control" placeholder="Usuario" type="text">
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
              </div>
-            <input name="" class="form-control" placeholder="Correo" type="email">
+            <input name="correo" class="form-control" placeholder="Correo" type="email">
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
@@ -53,21 +53,21 @@
             </div>
             <select class="form-control">
                 <option selected=""> Genero </option>
-                <option>Hombre</option>
-                <option>Mujer</option>
+                <option value = "1" >Hombre</option>
+                <option value= "0">Mujer</option>
             </select>
         </div> <!-- form-group end.// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
-            <input class="form-control" placeholder="Crear contraseña" type="password">
+            <input name = "pass" class="form-control" placeholder="Crear contraseña" type="password">
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
-            <input class="form-control" placeholder="Confirmar contraseña" type="password">
+            <input name = "verPass" class="form-control" placeholder="Confirmar contraseña" type="password">
         </div> <!-- form-group// -->                                      
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block"> Crear Cuenta  </button>
