@@ -65,7 +65,43 @@ def verRegister():
     name = request.form.get('name')
     lastName = request.form.get('lastName')
     gender = request.form.get('gender')
-    return f'{gender}'
+    verification = request.form.get('verPass')
+    userName = request.form.get('nick')
+
+    error = None
+    if verification != password:
+        error = "Las contraseñas no coinciden"
+    if error == None:
+        db.camaras.insert_one({
+
+        "username": userName,
+        "email": email,
+        "password": password,
+        "nombre": name,
+        "apellido": lastName,
+        "genero": gender,
+
+        "hardware": {
+            "ip": "xxx.xxx.xxx.xxx",
+            "ssid": "XXXXXX",
+            "password": "XXXXXXXXXXXXXXXXXXXX",
+            "static": {
+                "camara": 11
+            }
+        },
+
+        "imagenes":{
+
+            "nombre": "19231.jpg","hora":'17/05/25'
+        },
+            
+        })
+
+
+        return redirect(url_for('home'))
+    
+    flash(error)
+    return render_template("register.html")
 
 if __name__ == '__main__':
     app.run(port = 5000,debug=True)
