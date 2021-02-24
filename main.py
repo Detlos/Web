@@ -7,11 +7,10 @@ import json
 import os
 
 # --
-client = pymongo.MongoClient("mongodb+srv://eadlpl11:5PinS5Jvi5WdHOOA@cluster0.dnnfi.mongodb.net/test?retryWrites=true&w=majority")
-
-
-db = client.test
 app = Flask(__name__)
+app.secret_key = "testing"
+client = pymongo.MongoClient("mongodb+srv://eadlpl11:5PinS5Jvi5WdHOOA@cluster0.dnnfi.mongodb.net/test?retryWrites=true&w=majority")
+db = client.test
 
 @app.route('/')
 def home():
@@ -39,19 +38,25 @@ def register():
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
-    users = db.camaras.find({'email':request.form.get('correo')})
-    password = db.camaras.find({'correo':request.form.get('pass')})
+    user = db.camaras.find_one({'email':request.form.get('correo')})
+    print(user)
     if request.method == 'POST':
-        correo = request.form.get('correo')
         password = request.form.get('pass')
+        print(password)
         error = None
-
-        if users is None or password is None:
+        if user is None:
+            print('prueba')
             error = 'Contraseña o correo invalidos'
         
-        if error is None:
-            return redirect(url_for('home')) 
+        elif user['password'] != password:
+            print('prueba2')
+            error = 'Contraseña o correo invalidos'
 
+        if error is None:
+            print('prueba3')
+            session.clear()
+            session['username'] = user['username']
+            return redirect(url_for('home'))
         flash(error)
 
     return render_template("login.html")
