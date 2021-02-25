@@ -62,6 +62,7 @@ def login():
             print('prueba3')
             session.clear()
             session['username'] = user['username']
+            logged_in = True
             return redirect(url_for('home'))
         flash(error)
 
