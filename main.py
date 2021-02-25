@@ -14,7 +14,11 @@ db = client.test
 
 @app.route('/')
 def home():
-    return render_template("index.html",)
+    if 'username' in session:
+        logged_in = True
+    else:
+        logged_in = False
+    return render_template("index.html", logged_in = logged_in)
 
 @app.route('/perfil')
 def perfil():
@@ -40,6 +44,8 @@ def register():
 def login():
     user = db.camaras.find_one({'email':request.form.get('correo')})
     print(user)
+    if 'username' in session:
+        return redirect(url_for('home'))
     if request.method == 'POST':
         password = request.form.get('pass')
         print(password)
@@ -61,7 +67,10 @@ def login():
 
     return render_template("login.html")
 
-
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('home'))
 
 @app.route('/verification_register', methods=['POST','GET'])
 def verRegister():
