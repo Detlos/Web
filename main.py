@@ -6,6 +6,15 @@ import requests as api
 import json
 import os
 
+def sessionstatus():
+    if 'username' in session:
+        logged_in = True
+    else:
+        logged_in = False
+        return redirect(url_for('home'))
+    return logged_in    
+
+
 # --
 app = Flask(__name__)
 app.secret_key = "testing"
@@ -22,22 +31,37 @@ def home():
 
 @app.route('/perfil')
 def perfil():
-    return render_template("perfil.html")
+    logged_in = sessionstatus()
+    if logged_in != True:
+        return redirect(url_for('home'))
+    return render_template("perfil.html", logged_in = logged_in)
 
 @app.route('/camaras')
 def camara():
-    return render_template("camaras.html")
+    logged_in = sessionstatus()
+    if logged_in != True:
+        return redirect(url_for('home'))
+    return render_template("camaras.html", logged_in = logged_in)
 
 @app.route('/fotografias')
 def fotos():
-    return render_template("fotos.html")
+    logged_in = sessionstatus()
+    if logged_in != True:
+        return redirect(url_for('home'))
+    return render_template("fotos.html", logged_in = logged_in)
 
 @app.route('/video')
 def video():
-    return render_template("video.html")
+    logged_in = sessionstatus()
+    if logged_in != True:
+        return redirect(url_for('home'))
+    return render_template("video.html", logged_in = logged_in)
 
 @app.route('/register')
 def register():
+    logged_in = sessionstatus()
+    if logged_in != True:
+        return redirect(url_for('home'))
     return render_template("register.html")
 
 @app.route('/login', methods = ['GET','POST'])
@@ -62,7 +86,6 @@ def login():
             print('prueba3')
             session.clear()
             session['username'] = user['username']
-            logged_in = True
             return redirect(url_for('home'))
         flash(error)
 
