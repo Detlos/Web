@@ -5,6 +5,11 @@ from pymongo import MongoClient
 import requests as api
 import json
 import os
+from cryptography.fernet import Fernet
+
+file = open('key.key','rb')
+key = file.read()
+f = Fernet(key)
 
 def sessionstatus():
     if 'username' in session:
@@ -60,19 +65,17 @@ def video():
 @app.route('/register')
 def register():
     logged_in = sessionstatus()
-    if logged_in != True:
+    if logged_in == True:
         return redirect(url_for('home'))
     return render_template("register.html")
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
     user = db.camaras.find_one({'email':request.form.get('correo')})
-    print(user)
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
         password = request.form.get('pass')
-        print(password)
         error = None
         if user is None:
             print('prueba')
@@ -114,7 +117,7 @@ def verRegister():
 
         "username": userName,
         "email": email,
-        "password": password,
+        "password": f.encrypt(password.encode()),
         "nombre": name,
         "apellido": lastName,
         "genero": gender,
