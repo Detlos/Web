@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block tittle %}Perfil{% endblock%}
+
+{% block content %}
+<style>
+    body{
+        background-color:black;
+    }
+    a{
+      color: black;
+    }
+</style>
+<div class="d-flex justify-content-center" style=" margin-left: auto; display: flex;">
+    <img src="http://assets.stickpng.com/images/585e4beacb11b227491c3399.png" height = "200" >
+</div>
+
+ <!-- <img src="..." class="card-img-top" alt="..."> -->
+<div class="row row-cols-1 row-cols-md-2 g-4" style="padding:5%; text-align: center; background-color:red; margin-right: auto;">
+    <div class="col">
+      <a href = "#">
+      <div class="card">
+        <!-- Aqui va la imagen-->
+        <div class="card-body">
+          <h5 class="card-title">Informacion personal</h5>
+          <p class="card-text">Aquí podrás cambiar los datos asociados a tu cuenta</p>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="col">
+
+      <a href="#">
+      <div class="card">
+        
+        <div class="card-body">
+          <h5 class="card-title">Cámaras</h5>
+          <p class="card-text">Añadir o configuración de cámaras asociadas a la cuenta
+        </p>
+        
+      </div>
+    </a>
+      </div>
+    </div>
+    <div class="col">
+      <a href="#">
+      <div class="card">
+        
+        <div class="card-body">
+          <h5 class="card-title">Capturas</h5>
+          <p class="card-text">Despliegue de las fotografías tomadas por las cámaras
+
+        </p>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="col">
+      <a href="#">
+      <div class="card">
+        
+        <div class="card-body">
+          <h5 class="card-title">Monitoreo</h5>
+          <p class="card-text">Monitoreo a tiempo real del campo de visión de las cámaras
+
+        </p>
+        </div>
+      </a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

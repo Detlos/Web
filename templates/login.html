@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block tittle %}Iniciar sesión{% endblock%}
+
+{% block content %}
+
+    <div class="container mt-4 mb-4" style="width: 100%; max-width: 610px; padding: 15px; margin: auto; background-color: #f1f2f2; border-radius: .5rem;">
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Inicio de Sesión</h1>
+        <p>
+            <a href="" class="btn btn-block" style="background-color: #dd5346;
+            color: #fff; "> <i class="fab fa-google"></i>   Inicio via Google</a>
+            <a href="" class="btn btn-block " style="background-color: #405D9D;
+            color: #fff;"> <i class="fab fa-facebook-f"></i>   Inicio via facebook</a>
+        </p>
+        <hr>
+        <p class="divider-text" style="text-align: center">
+            <span class="bg-light">Sino</span>
+        </p>
+        <form method="post">
+            <div class="mb-3">
+              <label for="correo" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" name="correo" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="pass" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" name="pass">
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Recordarme</label>
+            </div>
+            <button type="submit" class="btn btn-block btn-success"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button>
+            <a href=""> ¿Has olvidado tu contraseña?</a>
+            <hr>
+            <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Crear una cuenta nueva</button>
+          </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block tittle %}{% endblock %}</title>
+</head>
+
+<body>
+    
+  <nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          
+          <a href="/"><img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/logo.png" class="img-fluid" style="height: 3rem; border-radius: 1rem;"></a>
+          
+
+            <form class="d-flex">
+
+              {% if logged_in %}
+              <li></li><a href="/logout" class="btn btn-outline-success me-2">Cerrar sesión</a></li>
+              {% else %}
+              <li><a href="/register" class="btn btn-outline-success me-2">Register</a></li>
+              <li></li><a href="/login" class="btn btn-outline-success me-2">Login</a></li>
+              {% endif %}
+              
+            </form>
+
+          </div>
+        </div>
+      </nav>
+
+      {% block content %}
+      {% endblock %}
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+      
+</body>
+</html>
