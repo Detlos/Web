@@ -1,3 +1,4 @@
+import requests
 from flask import Flask, redirect, render_template,url_for,request,flash
 from flask.globals import session
 import pymongo
@@ -6,6 +7,9 @@ import requests as api
 import json
 import os
 from cryptography.fernet import Fernet
+from requests import get
+
+
 
 file = open('key.key','rb')
 key = file.read()
@@ -19,7 +23,7 @@ def sessionstatus():
     return logged_in    
 
 
-# --
+
 app = Flask(__name__)
 app.secret_key = "testing"
 client = pymongo.MongoClient("mongodb+srv://eadlpl11:5PinS5Jvi5WdHOOA@cluster0.dnnfi.mongodb.net/test?retryWrites=true&w=majority")
@@ -101,6 +105,9 @@ def logout():
 
 @app.route('/verification_register', methods=['POST','GET'])
 def verRegister():
+    
+
+
     email = request.form.get('correo')
     password = request.form.get('pass')
     name = request.form.get('name')
@@ -108,38 +115,26 @@ def verRegister():
     gender = request.form.get('gender')
     verification = request.form.get('verPass')
     userName = request.form.get('nick')
+    
+    my_dict = {
+        'username':userName,
+        'email':email,
+        'password':password,
+        'nombre':name,
+        'apellido':lastName,
+        'genero':gender
+    }
 
+    endpoint = 'https://detlossecurityapi.herokuapp.com/register'
     error = None
+
     if verification != password:
         error = "Las contraseñas no coinciden"
     if error == None:
-        db.camaras.insert_one({
+        respuesta = api.post(endpoint,json = my_dict)
+        respuesta.text
 
-        "username": userName,
-        "email": email,
-        "password": f.encrypt(password.encode()),
-        "nombre": name,
-        "apellido": lastName,
-        "genero": gender,
-
-        "hardware": {
-            "ip": "xxx.xxx.xxx.xxx",
-            "ssid": "XXXXXX",
-            "password": "XXXXXXXXXXXXXXXXXXXX",
-            "static": {
-                "camara": 11
-            }
-        },
-
-        "imagenes":{
-
-            "nombre": "19231.jpg","hora":'17/05/25'
-        },
-            
-        })
-
-
-        return redirect(url_for('home'))
+    return redirect(url_for('home'))
     
     flash(error)
     return render_template("register.html")
