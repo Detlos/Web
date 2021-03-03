@@ -10,7 +10,6 @@ from cryptography.fernet import Fernet
 file = open('key.key','rb')
 key = file.read()
 f = Fernet(key)
-
 def sessionstatus():
     if 'username' in session:
         logged_in = True
@@ -72,21 +71,22 @@ def register():
 @app.route('/login', methods = ['GET','POST'])
 def login():
     user = db.camaras.find_one({'email':request.form.get('correo')})
+
+    
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
+        pe = f.decrypt( user['password'])
+        pe = pe.decode()
         password = request.form.get('pass')
         error = None
         if user is None:
-            print('prueba')
             error = 'Contraseña o correo invalidos'
         
-        elif user['password'] != password:
-            print('prueba2')
+        elif pe != password:
             error = 'Contraseña o correo invalidos'
 
         if error is None:
-            print('prueba3')
             session.clear()
             session['username'] = user['username']
             return redirect(url_for('home'))
