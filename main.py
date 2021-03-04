@@ -4,7 +4,6 @@ import pymongo
 from pymongo import MongoClient
 import requests as api
 import json
-import os
 from cryptography.fernet import Fernet
 
 file = open('key.key','rb')
