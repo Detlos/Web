@@ -14,6 +14,7 @@ from requests import get
 file = open('key.key','rb')
 key = file.read()
 f = Fernet(key)
+
 def sessionstatus():
     if 'username' in session:
         logged_in = True
@@ -25,9 +26,8 @@ def sessionstatus():
 
 
 app = Flask(__name__)
-app.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://eadlpl11:5PinS5Jvi5WdHOOA@cluster0.dnnfi.mongodb.net/test?retryWrites=true&w=majority")
-db = client.test
+
+app.secret_key = "elMiadoDelElmer"
 
 @app.route('/')
 def home():
@@ -74,27 +74,29 @@ def register():
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
-    user = db.camaras.find_one({'email':request.form.get('correo')})
-
-    
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
-        pe = f.decrypt( user['password'])
-        pe = pe.decode()
-        password = request.form.get('pass')
         error = None
-        if user is None:
-            error = 'Contraseña o correo invalidos'
+        correo = request.form.get('correo')
+        password = request.form.get('pass')
+        my_dict = {
+            'correo':correo,
+            'password':password
+        }
+        endpoint = 'https://detlosapi.herokuapp.com/login'
+        respuesta = api.post(endpoint,json = my_dict)
+        data = respuesta.json()
+        return data
+        # if respuesta is None:
+        #     error = 'Contraseña o correo invalidos'
         
-        elif pe != password:
-            error = 'Contraseña o correo invalidos'
-
-        if error is None:
-            session.clear()
-            session['username'] = user['username']
-            return redirect(url_for('home'))
-        flash(error)
+        # if error is None:
+        #     session.clear()
+        #     print(respuesta)
+        #     session['username'] = respuesta['username']
+        #     return redirect(url_for('home'))
+        # flash(error)
 
     return render_template("login.html")
 
@@ -125,13 +127,14 @@ def verRegister():
         'genero':gender
     }
 
-    endpoint = 'https://detlossecurityapi.herokuapp.com/register'
+    #endpoint = 'https://detlossecurityapi.herokuapp.com/register'
+    link = 'https://local:5000/register'
     error = None
 
     if verification != password:
         error = "Las contraseñas no coinciden"
     if error == None:
-        respuesta = api.post(endpoint,json = my_dict)
+        respuesta = api.post(link,json = my_dict)
         respuesta.text
 
     return redirect(url_for('home'))
@@ -140,4 +143,4 @@ def verRegister():
     return render_template("register.html")
 
 if __name__ == '__main__':
-    app.run(port = 5000,debug=True)
+    app.run(port = 5050,debug=True)
