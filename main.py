@@ -75,10 +75,10 @@ def register():
 @app.route('/login', methods = ['GET','POST'])
 def login():
     user = db.camaras.find_one({'email':request.form.get('correo')})
-
     
     if 'username' in session:
         return redirect(url_for('home'))
+        
     if request.method == 'POST':
         pe = f.decrypt( user['password'])
         pe = pe.decode()
@@ -125,7 +125,8 @@ def verRegister():
         'genero':gender
     }
 
-    endpoint = 'https://detlossecurityapi.herokuapp.com/register'
+    """ endpoint = 'https://detlossecurityapi.herokuapp.com/register' """
+    endpoint = 'http://localhost:5050/register'
     error = None
 
     if verification != password:
