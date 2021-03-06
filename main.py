@@ -14,6 +14,7 @@ from requests import get
 file = open('key.key','rb')
 key = file.read()
 f = Fernet(key)
+
 def sessionstatus():
     if 'username' in session:
         logged_in = True
@@ -25,9 +26,8 @@ def sessionstatus():
 
 
 app = Flask(__name__)
-app.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://eadlpl11:5PinS5Jvi5WdHOOA@cluster0.dnnfi.mongodb.net/test?retryWrites=true&w=majority")
-db = client.test
+
+app.secret_key = "elMiadoDelElmer"
 
 @app.route('/')
 def home():
@@ -80,21 +80,26 @@ def login():
         return redirect(url_for('home'))
         
     if request.method == 'POST':
-        pe = f.decrypt( user['password'])
-        pe = pe.decode()
-        password = request.form.get('pass')
         error = None
-        if user is None:
-            error = 'Contraseña o correo invalidos'
+        correo = request.form.get('correo')
+        password = request.form.get('pass')
+        my_dict = {
+            'correo':correo,
+            'password':password
+        }
+        endpoint = 'https://detlosapi.herokuapp.com/login'
+        respuesta = api.post(endpoint,json = my_dict)
+        data = respuesta.json()
+        return data
+        # if respuesta is None:
+        #     error = 'Contraseña o correo invalidos'
         
-        elif pe != password:
-            error = 'Contraseña o correo invalidos'
-
-        if error is None:
-            session.clear()
-            session['username'] = user['username']
-            return redirect(url_for('home'))
-        flash(error)
+        # if error is None:
+        #     session.clear()
+        #     print(respuesta)
+        #     session['username'] = respuesta['username']
+        #     return redirect(url_for('home'))
+        # flash(error)
 
     return render_template("login.html")
 
@@ -106,8 +111,6 @@ def logout():
 @app.route('/verification_register', methods=['POST','GET'])
 def verRegister():
     
-
-
     email = request.form.get('correo')
     password = request.form.get('pass')
     name = request.form.get('name')
@@ -141,4 +144,4 @@ def verRegister():
     return render_template("register.html")
 
 if __name__ == '__main__':
-    app.run(port = 5000,debug=True)
+    app.run(port = 5050,debug=True)
