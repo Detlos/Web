@@ -2,7 +2,13 @@
 {% block tittle %}Home{% endblock%}
 
 {% block content %}
-
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <p>{{msg}}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith%}
 <!-- Video de fondo -->
 <div class="video-background">
     

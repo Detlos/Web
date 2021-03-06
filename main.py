@@ -74,8 +74,6 @@ def register():
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
-    user = db.camaras.find_one({'email':request.form.get('correo')})
-    
     if 'username' in session:
         return redirect(url_for('home'))
         
@@ -87,25 +85,27 @@ def login():
             'correo':correo,
             'password':password
         }
-        endpoint = 'https://detlosapi.herokuapp.com/login'
+        endpoint = 'http://localhost:5050/login'
         respuesta = api.post(endpoint,json = my_dict)
-        data = respuesta.json()
-        return data
-        # if respuesta is None:
-        #     error = 'Contraseña o correo invalidos'
+        dato = respuesta.json()
+        if dato['respuesta'] == "Correo o contrasena invalidos":
+            error = 'Contraseña o correo invalidos'
         
-        # if error is None:
-        #     session.clear()
-        #     print(respuesta)
-        #     session['username'] = respuesta['username']
-        #     return redirect(url_for('home'))
-        # flash(error)
+        if error is None:
+            session.clear()
+            session['username'] = dato['respuesta']
+            usuario = session['username']
+            flash(f"Bienvenido {usuario}","info")
+            return redirect(url_for('home'))
+            
+        flash(error, "error")
 
     return render_template("login.html")
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    flash("Has cerrado sesion correctamente.","info")
     return redirect(url_for('home'))
 
 @app.route('/verification_register', methods=['POST','GET'])
@@ -130,18 +130,19 @@ def verRegister():
 
     """ endpoint = 'https://detlossecurityapi.herokuapp.com/register' """
     endpoint = 'http://localhost:5050/register'
-    error = None
 
     if verification != password:
-        error = "Las contraseñas no coinciden"
-    if error == None:
+        respuesta = "Las contraseñas no coinciden"
+    else:
         respuesta = api.post(endpoint,json = my_dict)
-        respuesta.text
-
-    return redirect(url_for('home'))
+        respuestaJson = respuesta.json()
+    if respuestaJson['respuesta'] == 'SE INSERTARON LOS DATOS CORRECTAMENTE':
+        flash(respuestaJson['respuesta'],'info')
+        return redirect(url_for('home'))
+       
     
-    flash(error)
+    flash(respuestaJson['respuesta'], 'error')
     return render_template("register.html")
 
 if __name__ == '__main__':
-    app.run(port = 5050,debug=True)
+    app.run(port = 5000,debug=True)
