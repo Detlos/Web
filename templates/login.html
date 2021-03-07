@@ -2,7 +2,13 @@
 {% block tittle %}Iniciar sesión{% endblock%}
 
 {% block content %}
-
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <p>{{msg}}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith%}
     <div class="container mt-4 mb-4" style="width: 100%; max-width: 610px; padding: 15px; margin: auto; background-color: #f1f2f2; border-radius: .5rem;">
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Inicio de Sesión</h1>
         <p>

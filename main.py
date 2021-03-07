@@ -1,3 +1,4 @@
+import requests
 from flask import Flask, redirect, render_template,url_for,request,flash
 from flask.globals import session
 import pymongo
@@ -5,10 +6,14 @@ from pymongo import MongoClient
 import requests as api
 import json
 from cryptography.fernet import Fernet
+from requests import get
+
+
 
 file = open('key.key','rb')
 key = file.read()
 f = Fernet(key)
+
 def sessionstatus():
     if 'username' in session:
         logged_in = True
@@ -18,11 +23,10 @@ def sessionstatus():
     return logged_in    
 
 
-# --
+
 app = Flask(__name__)
-app.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://eadlpl11:5PinS5Jvi5WdHOOA@cluster0.dnnfi.mongodb.net/test?retryWrites=true&w=majority")
-db = client.test
+
+app.secret_key = "elMiadoDelElmer"
 
 @app.route('/')
 def home():
@@ -69,37 +73,43 @@ def register():
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
-    user = db.camaras.find_one({'email':request.form.get('correo')})
-
-    
     if 'username' in session:
         return redirect(url_for('home'))
+        
     if request.method == 'POST':
-        pe = f.decrypt( user['password'])
-        pe = pe.decode()
-        password = request.form.get('pass')
         error = None
-        if user is None:
+        correo = request.form.get('correo')
+        password = request.form.get('pass')
+        my_dict = {
+            'correo':correo,
+            'password':password
+        }
+        endpoint = 'http://localhost:5050/login'
+        respuesta = api.post(endpoint,json = my_dict)
+        dato = respuesta.json()
+        if dato['respuesta'] == "Correo o contrasena invalidos":
             error = 'Contraseña o correo invalidos'
         
-        elif pe != password:
-            error = 'Contraseña o correo invalidos'
-
         if error is None:
             session.clear()
-            session['username'] = user['username']
+            session['username'] = dato['respuesta']
+            usuario = session['username']
+            flash(f"Bienvenido {usuario}","info")
             return redirect(url_for('home'))
-        flash(error)
+            
+        flash(error, "error")
 
     return render_template("login.html")
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    flash("Has cerrado sesion correctamente.","info")
     return redirect(url_for('home'))
 
 @app.route('/verification_register', methods=['POST','GET'])
 def verRegister():
+    
     email = request.form.get('correo')
     password = request.form.get('pass')
     name = request.form.get('name')
@@ -107,40 +117,30 @@ def verRegister():
     gender = request.form.get('gender')
     verification = request.form.get('verPass')
     userName = request.form.get('nick')
-
-    error = None
-    if verification != password:
-        error = "Las contraseñas no coinciden"
-    if error == None:
-        db.camaras.insert_one({
-
-        "username": userName,
-        "email": email,
-        "password": f.encrypt(password.encode()),
-        "nombre": name,
-        "apellido": lastName,
-        "genero": gender,
-
-        "hardware": {
-            "ip": "xxx.xxx.xxx.xxx",
-            "ssid": "XXXXXX",
-            "password": "XXXXXXXXXXXXXXXXXXXX",
-            "static": {
-                "camara": 11
-            }
-        },
-
-        "imagenes":{
-
-            "nombre": "19231.jpg","hora":'17/05/25'
-        },
-            
-        })
-
-
-        return redirect(url_for('home'))
     
-    flash(error)
+    my_dict = {
+        'username':userName,
+        'email':email,
+        'password':password,
+        'nombre':name,
+        'apellido':lastName,
+        'genero':gender
+    }
+
+    """ endpoint = 'https://detlossecurityapi.herokuapp.com/register' """
+    endpoint = 'http://localhost:5050/register'
+
+    if verification != password:
+        respuesta = "Las contraseñas no coinciden"
+    else:
+        respuesta = api.post(endpoint,json = my_dict)
+        respuestaJson = respuesta.json()
+    if respuestaJson['respuesta'] == 'SE INSERTARON LOS DATOS CORRECTAMENTE':
+        flash(respuestaJson['respuesta'],'info')
+        return redirect(url_for('home'))
+       
+    
+    flash(respuestaJson['respuesta'], 'error')
     return render_template("register.html")
 
 if __name__ == '__main__':

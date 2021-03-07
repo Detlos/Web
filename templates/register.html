@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block tittle %}Registro{% endblock%}
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith%}
     <div class="container">
     <br>
     <hr>
@@ -20,7 +27,7 @@
             color: #fff;"> <i class="fab fa-facebook-f"></i>   Registro via facebook</a>
         </p>
         <p class="divider-text">
-            <span class="bg-light">Sino</span>
+            <span class="bg-light">Si no</span>
         </p>
         <form method ="POST" action="/verification_register">
         <div class="form-group input-group">
