@@ -144,5 +144,3 @@ def verRegister():
     flash(respuestaJson['respuesta'], 'error')
     return render_template("register.html")
 
-if __name__ == '__main__':
-    app.run(port = 5000,debug=True)
