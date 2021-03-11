@@ -23,10 +23,10 @@
             <form class="d-flex">
 
               {% if logged_in %}
-              <li></li><a href="/logout" class="btn btn-outline-success me-2">Cerrar sesión</a></li>
+              <li></li><a href="/logout" class="btn btn-outline-success me-2">Logout</a></li><!-- Cerrar sesión -->
               {% else %}
-              <li><a href="/register" class="btn btn-outline-success me-2">Registrarse</a></li>
-              <li></li><a href="/login" class="btn btn-outline-success me-2">Iniciar sesion</a></li>
+              <li><a href="/register" class="btn btn-outline-success me-2">Sign Up</a></li><!-- Registrarse -->
+              <li></li><a href="/login" class="btn btn-outline-success me-2">Sign In</a></li><!-- Iniciar sesion -->
               {% endif %}
               
             </form>
