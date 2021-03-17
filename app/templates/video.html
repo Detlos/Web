@@ -7,15 +7,74 @@
         background-color:black;
     }
 
+
+#video:hover {
+	background-color: red;
+}
+
 </style>
 
-<div align = "center">
-<img  src = "https://www.tierrafertil.com.mx/wp-content/uploads/2020/03/live-png-logo-4.png" style = "width: 10%; ">
-</div>
-<p class="h2" style = "color: white; text-align: center;">En directo</p>
 
-<div class="d-flex justify-content-center" style = "margin: 3%; padding :0;">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jj1wgK8zHjM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style = "margin: 5%; padding:0;"></iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jj1wgK8zHjM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style = "margin: 5%; padding:0;"></iframe>
+
+<p class="h2"  id="Titulo" style = "color: white; text-align: center; margin: 3rem 0rem;">Nombre de la cam o IP</p>
+
+<div class="d-flex justify-content-center" style="padding:0px; border:0px; margin:0px;">
+    
+        <img id="video" src="http://192.168.0.9:81/stream" style="height:70vh;width: 54vw; padding:0px; border:10px; margin:0px;">
+    
 </div>
+
+<script>
+    var elem = document.documentElement;  
+    target = document.getElementById("video")
+    source = document.getElementById("bt")
+
+    let fullscreen = 0;
+    console.log("full: "+fullscreen)
+    
+    
+    target.addEventListener("click", function(){
+    
+        fullscreen ++;
+        console.log("full: "+fullscreen)
+        
+        if(fullscreen%2 == 1){
+        Object.assign(target.style, {display:"block",height:"100vh",width:"100vw",top:"0px",zindex:"999",position:"absolute"});
+        document.getElementById("Titulo").style.display = "none";
+        document.getElementById("bar").style.display = "none";
+
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+
+        console.log("primeras carnal");
+
+
+        }else{
+        Object.assign(target.style, {height:"70vh", width: "54vw",padding:"0px", border:"0px", margin:"0px",zindex:"999",position:"relative"});
+        document.getElementById("Titulo").style.display = "block";
+        document.getElementById("bar").style.display = "block";
+        console.log("segundas carnal");
+
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+          document.msExitFullscreen();
+        }        
+        }
+        
+    }); 
+    
+    
+    
+    
+</script>
+
+
 {% endblock %}
