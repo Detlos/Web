@@ -4,77 +4,83 @@
 {% block content %}
 <style>
     body{
-        background-color:black;
+        background-color: black;        
     }
 
 
-#video:hover {
-	background-color: red;
-}
-
+    #video:hover {
+      background-color: white;
+      
+    }
 </style>
 
-
-
-<p class="h2"  id="Titulo" style = "color: white; text-align: center; margin: 3rem 0rem;">Nombre de la cam o IP</p>
-
-<div class="d-flex justify-content-center" style="padding:0px; border:0px; margin:0px;">
-    
-        <img id="video" src="http://192.168.0.9:81/stream" style="height:70vh;width: 54vw; padding:0px; border:10px; margin:0px;">
-    
-</div>
-
 <script>
-    var elem = document.documentElement;  
-    target = document.getElementById("video")
-    source = document.getElementById("bt")
-
-    let fullscreen = 0;
-    console.log("full: "+fullscreen)
-    
-    
-    target.addEventListener("click", function(){
-    
-        fullscreen ++;
-        console.log("full: "+fullscreen)
-        
-        if(fullscreen%2 == 1){
-        Object.assign(target.style, {display:"block",height:"100vh",width:"100vw",top:"0px",zindex:"999",position:"absolute"});
-        document.getElementById("Titulo").style.display = "none";
-        document.getElementById("bar").style.display = "none";
-
-        if (elem.requestFullscreen) {
-          elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-          elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-          elem.msRequestFullscreen();
-        }
-
-        console.log("primeras carnal");
-
-
-        }else{
-        Object.assign(target.style, {height:"70vh", width: "54vw",padding:"0px", border:"0px", margin:"0px",zindex:"999",position:"relative"});
-        document.getElementById("Titulo").style.display = "block";
-        document.getElementById("bar").style.display = "block";
-        console.log("segundas carnal");
-
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
-          document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-          document.msExitFullscreen();
-        }        
-        }
-        
-    }); 
-    
-    
-    
-    
+  var elem = document.documentElement;
+  let fullscreen = 0;
 </script>
 
+
+<p class="h2"  id="Titulo" style = "color: white; text-align: center; margin: 3rem 0rem;">Cámaras</p>
+
+<div class="container-fluid flex-wrap d-flex justify-content-center" style="padding:0px; border:0px; margin:0px;">
+
+{%for x in camera_ip['static'] %}
+
+  <img alt="Video no disponible" id="video{{x[0]}}" src="{{ camera_ip['static'][x[0]] }}" style="height:70vh;width: 54vw; padding:0px; border:0px; margin:0px;">
+        
+<div style="width:90vw; height: 3rem;padding:0px; border:0px; margin:0px;"></div>
+
+
+<script> 
+  
+  document.getElementById("video{{ x[0] }}").addEventListener("click", function(){
+    console.log(document.getElementById("video{{ x[0] }}"))
+      fullscreen ++;
+      console.log("full: "+fullscreen)
+      
+      
+      if(fullscreen%2 == 1){
+      elem.style.visibility= "hidden";
+      
+      Object.assign(document.getElementById("video{{ x[0] }}").style, {height:"100vh",width:"100vw",top:"0px",/* display:"block", */
+                                                                      zIndex:"100",position:"fixed",visibility:"visible"});
+
+      elem.style.overflow = "hidden";      
+
+      console.log("target: {{ x[0] }}")
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+
+      
+      }else{
+      elem.style.visibility= "visible";
+
+      elem.style.overflow = "auto";
+
+      Object.assign(document.getElementById("video{{ x[0] }}").style, {
+        height:"70vh", width: "54vw",padding:"0px", border:"0px",
+        margin:"0px",zIndex:"0",position:"relative",margin:"0px"});
+      
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      }        
+      }
+      
+  });
+  
+</script>
+
+{%endfor%}
+
+</div>
 
 {% endblock %}

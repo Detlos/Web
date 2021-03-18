@@ -58,12 +58,35 @@ def fotos():
         return redirect(url_for('home'))
     return render_template("fotos.html", logged_in = logged_in)
 
+
+def page_error(caller, on_exception):
+    try:
+         return caller()
+    except:
+         return on_exception
+
 @app.route('/video')
 def video():
+    """ try: """
     logged_in = sessionstatus()
-    if logged_in != True:
+
+    if logged_in != True:        
         return redirect(url_for('home'))
-    return render_template("video.html", logged_in = logged_in)
+
+    username = session['username']
+    """ print(username) """
+
+    endpoint = 'http://localhost:5050/get_hardware'
+    my_dict = {'username':session['username']}
+    
+    answer = api.post(endpoint,json = my_dict)
+    camera_ip = answer.json()
+    
+    
+    return render_template("video.html", logged_in = logged_in,camera_ip = camera_ip)
+    """ except:
+        print('FALLA')
+        return render_template("404.html") """
 
 @app.route('/register')
 def register():
