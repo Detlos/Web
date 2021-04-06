@@ -27,7 +27,7 @@
 {%for x in camera_ip['static'] %}
 
   <img alt="Video no disponible" id="video{{x[0]}}" src="{{ camera_ip['static'][x[0]] }}" style="height:70vh;width: 54vw; padding:0px; border:0px; margin:0px;">
-        
+
 <div style="width:90vw; height: 3rem;padding:0px; border:0px; margin:0px;"></div>
 
 
@@ -45,9 +45,8 @@
       Object.assign(document.getElementById("video{{ x[0] }}").style, {height:"100vh",width:"100vw",top:"0px",/* display:"block", */
                                                                       zIndex:"100",position:"fixed",visibility:"visible"});
 
-      elem.style.overflow = "hidden";      
+      elem.style.overflow = "hidden"; 
 
-      console.log("target: {{ x[0] }}")
       if (elem.requestFullscreen) {
         elem.requestFullscreen();
       } else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -84,3 +83,5 @@
 </div>
 
 {% endblock %}
+
+
