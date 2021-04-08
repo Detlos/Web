@@ -4,18 +4,82 @@
 {% block content %}
 <style>
     body{
-        background-color:black;
+        background-color: black;        
     }
 
+
+    #video:hover {
+      background-color: white;
+      
+    }
 </style>
 
-<div align = "center">
-<img  src = "https://www.tierrafertil.com.mx/wp-content/uploads/2020/03/live-png-logo-4.png" style = "width: 10%; ">
-</div>
-<p class="h2" style = "color: white; text-align: center;">En directo</p>
+<script>
+  var elem = document.documentElement;
+  let fullscreen = 0;
+</script>
 
-<div class="d-flex justify-content-center" style = "margin: 3%; padding :0;">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jj1wgK8zHjM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style = "margin: 5%; padding:0;"></iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jj1wgK8zHjM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style = "margin: 5%; padding:0;"></iframe>
+
+<p class="h2"  id="Titulo" style = "color: white; text-align: center; margin: 3rem 0rem;">Cámaras</p>
+
+<div class="container-fluid flex-wrap d-flex justify-content-center" style="padding:0px; border:0px; margin:0px;">
+
+{%for x in camera_ip['objeto'] %}
+
+  <img alt="Video no disponible" id="video{{x[0]}}" src="{{ camera_ip['objeto'][x[0]] }}" style="height:70vh;width: 54vw; padding:0px; border:0px; margin:0px;">
+
+<div style="width:90vw; height: 3rem;padding:0px; border:0px; margin:0px;"></div>
+
+
+<script> 
+  
+  document.getElementById("video{{ x[0] }}").addEventListener("click", function(){
+    console.log(document.getElementById("video{{ x[0] }}"))
+      fullscreen ++;
+      console.log("full: "+fullscreen)
+      
+      
+      if(fullscreen%2 == 1){
+      elem.style.visibility= "hidden";
+      
+      Object.assign(document.getElementById("video{{ x[0] }}").style, {height:"100vh",width:"100vw",top:"0px",/* display:"block", */
+                                                                      zIndex:"100",position:"fixed",visibility:"visible"});
+
+      elem.style.overflow = "hidden"; 
+
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+
+      
+      }else{
+      elem.style.visibility= "visible";
+
+      elem.style.overflow = "auto";
+
+      Object.assign(document.getElementById("video{{ x[0] }}").style, {
+        height:"70vh", width: "54vw",padding:"0px", border:"0px",
+        margin:"0px",zIndex:"0",position:"relative",margin:"0px"});
+      
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      }        
+      }
+      
+  });
+  
+</script>
+
+{%endfor%}
+
 </div>
+
 {% endblock %}

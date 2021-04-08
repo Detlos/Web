@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block tittle %}Registro{% endblock%}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith%}
+    <div class="container">
+    <br>
+    <hr>
+    
+    
+    
+    
+    
+    <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+
+        <form method ="POST" action="/cambio_nombre_boton">
+        
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input name = "nuevoNombre" class="form-control" placeholder="Ingrese su nombre"type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input name = "nuevoApellido" class="form-control" placeholder="Ingrese su apellido" type="text">
+        </div> <!-- form-group// -->  
+        
+        
+
+
+
+
+
+
+
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input name = "verPass" class="form-control" placeholder="Ingrese su constraseña" type="password">
+        </div> <!-- form-group// -->  
+
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Nombre / Apellido </button>
+        </div> <!-- form-group// -->      
+                                                                       
+    </form>
+    </article>
+    </div> <!-- card.// -->
+    
+    </div>    
+{% endblock %}

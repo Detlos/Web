@@ -2,23 +2,93 @@
 {% block tittle %}Fotografias{% endblock%}
 
 {% block content %}
+
 <style>
     body{
         background-color:black;
     }
+.galeria{
+  margin: 5% 5%;
+}
+
+.galeria img{
+  transition: 1s;
+  padding: 3%;
+  width: 20%;
+  cursor: pointer;
+}
+
+.galeria img:hover{
+  filter:grayscale(100%);
+  transform: scale(1.1);
+}
+
+
+#lightbox {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .8);
+ display:none;
+}
+
+#lightbox.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  padding: 4px;
+  background-color: black;
+  border: 2px solid white;
+}
 
 </style>
 
-<p class="h2" style = "color: white;">Fecha</p>
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%;  margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%; margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%; margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%; margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%;  margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%; margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%; margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%; margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%; margin: 1rem;">
-<img src="https://raw.githubusercontent.com/Detlos/web-images/ac6178a8048243b6d2f2574658eeb46d0f2b5664/spy.svg" style = "width: 10%; margin: 1rem;">
 
+
+
+
+<p class="h2" style ="color: white;">Fecha</p>
+<div class = "galeria">
+{%for x in fotos%}
+
+<img src="https://detlosapibucket.s3.us-east-2.amazonaws.com/detlosapibucket/flor-de-sakura.jpg">
+
+  
+
+
+{%endfor%}
+</div>
+
+<script defer>
+  const lightbox = document.createElement('div')
+  lightbox.id = 'lightbox'
+  document.body.appendChild(lightbox)
+  
+  const images = document.querySelectorAll('img')
+  images.forEach(image => {
+    image.addEventListener('click', e => {
+      lightbox.classList.add('active')
+      const img = document.createElement('img')
+      img.src = image.src
+      while (lightbox.firstChild) {
+        lightbox.removeChild(lightbox.firstChild)
+      }
+      lightbox.appendChild(img)
+    })
+  })
+  
+  lightbox.addEventListener('click', e => {
+    if (e.target !== e.currentTarget) return
+    lightbox.classList.remove('active')
+  })
+  
+  
+  </script>
 {% endblock %}
